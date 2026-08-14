@@ -1,9 +1,9 @@
 import skills from "../data/skills";
 import { useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
+import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
-
+pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
 function Resume({ onExploreSkill }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [resumeText, setResumeText] = useState("");
@@ -288,102 +288,96 @@ const getResumeScoreMessage = (score) => {
 
     // Handle resume upload
     const handleFileChange = async (event) => {
-        const file = event.target.files[0];
+    const file = event.target.files[0];
 
-        if (!file) {
-            return;
-        }
-
-        setSelectedFile(file);
-
-        // Currently only PDF is supported
-       if (file.type !== "application/pdf") {
-    alert("For now, please upload a PDF resume.");
-    return;
-}
-
-        try {
-            const arrayBuffer = await file.arrayBuffer();
-
-            const pdf = await pdfjsLib.getDocument({
-                data: arrayBuffer,
-            }).promise;
-
-            let extractedText = "";
-
-            // Extract text from every page
-            for (
-                let pageNumber = 1;
-                pageNumber <= pdf.numPages;
-                pageNumber++
-            ) {
-                const page = await pdf.getPage(pageNumber);
-
-                const textContent = await page.getTextContent();
-
-                const pageText = textContent.items
-                    .map((item) => item.str)
-                    .join(" ");
-
-                extractedText += pageText + "\n";
-            }
-
-            // Save extracted text
-            setResumeText(extractedText);
-
-           
-            // Analyze resume
-            const response = await fetch(
-    "http://localhost:5000/api/resume/analyze",
-    {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            text: extractedText,
-            skills: skills,
-        }),
+    if (!file) {
+        return;
     }
-);
 
-if (!response.ok) {
-    throw new Error("Backend resume analysis failed");
-}
+    setSelectedFile(file);
 
-// Save extracted text
-setResumeText(extractedText);
+    if (file.type !== "application/pdf") {
+        alert("For now, please upload a PDF resume.");
+        return;
+    }
 
-// Check that PDF text extraction is working
-console.log("PDF TEXT EXTRACTED:");
-console.log(extractedText);
+    try {
+        const arrayBuffer = await file.arrayBuffer();
 
-// Parse resume locally for now
-const parsedSections = parseResumeText(extractedText);
+        const pdf = await pdfjsLib.getDocument({
+            data: arrayBuffer,
+        }).promise;
 
-setResumeSections(parsedSections);
+        let extractedText = "";
 
-const analysis = analyzeResume(parsedSections);
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
+            const page = await pdf.getPage(pageNumber);
 
-setResumeAnalysis(analysis);
+            const textContent = await page.getTextContent();
 
-const skillsFound = detectSkills(extractedText);
+            const pageText = textContent.items
+                .map((item) => item.str)
+                .join(" ");
 
-setDetectedSkills(skillsFound);
-
-const missingSkills = calculateSkillGap(skillsFound);
-
-setSkillGap(missingSkills);
-
-            // Debugging
-            // Debugging
-console.log("EXTRACTED RESUME TEXT:", extractedText);
-console.log("BACKEND RESULT:", result);
-        } catch (error) {
-            console.error("Error reading resume:", error);
-            alert("Could not read this PDF.");
+            extractedText += pageText + "\n";
         }
-    };
+
+        // Save extracted text
+        setResumeText(extractedText);
+
+        console.log("PDF TEXT EXTRACTED:");
+        console.log(extractedText);
+
+        // Send text to backend
+        const response = await fetch(
+            "http://localhost:5000/api/resume/analyze",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    text: extractedText,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Backend resume analysis failed");
+        }
+
+        // Get backend response
+        const result = await response.json();
+
+        console.log("BACKEND RESULT:");
+        console.log(result);
+
+        // Local analysis for now
+        const parsedSections = parseResumeText(extractedText);
+
+        setResumeSections(parsedSections);
+
+        const analysis = analyzeResume(parsedSections);
+
+        setResumeAnalysis(analysis);
+
+        const skillsFound = detectSkills(extractedText);
+
+        setDetectedSkills(skillsFound);
+
+        const missingSkills = calculateSkillGap(skillsFound);
+
+        setSkillGap(missingSkills);
+
+    } catch (error) {
+        console.error("Error reading resume:", error);
+        alert("Could not read this PDF.");
+    }
+};
 
     return (
         <section className="resume-section">
@@ -413,14 +407,14 @@ console.log("BACKEND RESULT:", result);
                 </p>
 
                 <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={handleFileChange}
-                />
+    type="file"
+    accept=".pdf"
+    onChange={handleFileChange}
+/>
 
                 <p className="upload-note">
-                    Supported formats: PDF, DOC, DOCX
-                </p>
+    Supported format: PDF (maximum 5 MB)
+</p>
 
                 {selectedFile && (
                     <p className="selected-file">
