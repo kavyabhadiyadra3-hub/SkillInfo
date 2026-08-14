@@ -4,11 +4,12 @@ import "./App.css";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Skills from './data/Skills.jsx';
+//import Skills from './data/Skills.jsx';
 import SkillDetails from "./components/SkillDetails";
 import LearningPath from "./components/LearningPath";
 import Lesson from "./components/Lesson";
 import Skills from "./components/Skills.jsx";
+import skills from "./data/Skills.js";
 import Courses from "./components/Courses";
 import About from "./components/About";
 import Progress from "./components/Progress";
