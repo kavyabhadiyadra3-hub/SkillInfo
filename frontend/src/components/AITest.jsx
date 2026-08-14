@@ -12,7 +12,7 @@ function AITest() {
     setReply("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/ai", {
+      const response = await fetch("https://skillinfo.onrender.com/api/ai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
