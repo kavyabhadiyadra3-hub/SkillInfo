@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
@@ -13,6 +14,9 @@ import About from "./components/About";
 import Progress from "./components/Progress";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Resume from "./components/Resume";
+import AITest from "./components/AITest";
+
 
 function App() {
   const [selectedSkill, setSelectedSkill] = useState(null);
@@ -20,6 +24,7 @@ function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const [showResume, setShowResume] = useState(false);
 
   const [completedTopics, setCompletedTopics] = useState(() => {
     const savedProgress = localStorage.getItem("skillInfoProgress");
@@ -138,6 +143,15 @@ onProgress={() => {
       });
   }, 50);
 }}
+onResume={() => {
+  setSelectedSkill(null);
+  setLearningSkill(null);
+  setSelectedTopic(null);
+  setShowLogin(false);
+  setShowSignup(false);
+  setShowResume(true);
+}}
+
   onAbout={() => {
   setSelectedSkill(null);
   setLearningSkill(null);
@@ -161,7 +175,28 @@ onProgress={() => {
 />
 
       {/* LESSON PAGE */}
-    {showSignup ? (
+   {showLogin ? (
+
+  <Login
+    onBack={() => {
+      setShowLogin(false);
+      setSelectedSkill(null);
+      setLearningSkill(null);
+      setSelectedTopic(null);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }}
+
+    onSignup={() => {
+      setShowLogin(false);
+      setShowSignup(true);
+    }}
+  />
+
+) : showSignup ? (
 
   <Signup
     onBack={() => setShowSignup(false)}
@@ -171,16 +206,23 @@ onProgress={() => {
     }}
   />
 
-) : showLogin ? (
+  ) : showResume ? (
 
-  <Login
-    onBack={() => setShowLogin(false)}
-    onSignup={() => {
-      setShowLogin(false);
-      setShowSignup(true);
-    }}
-  />
+  <Resume
+  onExploreSkill={(skillTitle) => {
+    const matchedSkill = skills.find(
+      (skill) =>
+        skill.title.toLowerCase() === skillTitle.toLowerCase()
+    );
 
+    if (matchedSkill) {
+      setShowResume(false);
+      setSelectedSkill(matchedSkill);
+      setLearningSkill(null);
+      setSelectedTopic(null);
+    }
+  }}
+/>
 
 
 ) : selectedTopic ? (
@@ -238,7 +280,9 @@ onProgress={() => {
         });
     }, 50);
   }}
-/>
+/> 
+
+<AITest />
 
           <Skills
   skills={skills}
@@ -263,9 +307,6 @@ onProgress={() => {
     onStart={startLearning}
   />
 )}
-
-          
-
         </>
 
       )}

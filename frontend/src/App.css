@@ -1200,3 +1200,287 @@ html {
 .signup-link:hover {
   text-decoration: underline;
 }
+.resume-preview-section {
+  width: 90%;
+  max-width: 900px;
+  margin: 50px auto;
+}
+
+.resume-preview-section > h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.resume-paper {
+  width: 210mm;
+  min-height: 297mm;
+  max-width: 100%;
+  margin: auto;
+  padding: 45px;
+  background: white;
+  color: #222;
+  box-sizing: border-box;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+.resume-header-preview {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #222;
+  white-space: pre-line;
+}
+
+.resume-preview-block {
+  margin-top: 25px;
+}
+
+.resume-preview-block h3 {
+  font-size: 18px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.resume-preview-block div {
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .resume-paper {
+    width: 100%;
+    padding: 25px;
+  }
+}
+
+.resume-analysis {
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto 80px;
+  padding: 30px;
+  background: #17243d;
+  border: 1px solid #334b70;
+  border-radius: 12px;
+}
+
+.resume-analysis h2 {
+  margin-bottom: 25px;
+}
+
+.resume-score {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.resume-score span {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.resume-score p {
+  margin-top: 5px;
+  opacity: 0.7;
+}
+
+.missing-sections h3 {
+  margin-bottom: 10px;
+}
+
+.missing-sections ul {
+  padding-left: 20px;
+}
+
+.missing-sections li {
+  margin-bottom: 8px;
+}
+
+.complete-message {
+  text-align: center;
+}
+
+.detected-skills {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto 60px;
+  padding: 30px;
+  background: #17243d;
+  border: 1px solid #334b70;
+  border-radius: 12px;
+}
+
+.detected-skills h2 {
+  margin-bottom: 20px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+}
+
+.skill-gap {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto 60px;
+  padding: 30px;
+  background: #17243d;
+  border: 1px solid #334b70;
+  border-radius: 12px;
+}
+
+.skill-gap h2 {
+  margin-bottom: 10px;
+}
+
+.skill-gap p {
+  opacity: 0.75;
+  margin-bottom: 25px;
+}
+
+.skill-gap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skill-gap-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 18px;
+  background: #0f192d;
+  border-radius: 8px;
+}
+
+.skill-gap-item button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+.skill-gap {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto 60px;
+  padding: 30px;
+  background: #17243d;
+  border: 1px solid #334b70;
+  border-radius: 12px;
+}
+
+.skill-gap h2 {
+  margin-bottom: 10px;
+}
+
+.skill-gap > p {
+  opacity: 0.75;
+  margin-bottom: 25px;
+}
+
+.skill-gap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skill-gap-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  background: #0f192d;
+  border-radius: 8px;
+}
+
+.skill-gap-info {
+  flex: 1;
+}
+
+.skill-gap-info h3 {
+  margin: 0 0 6px;
+}
+
+.skill-gap-info p {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.skill-gap-item button {
+  flex-shrink: 0;
+  margin-left: 20px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.skill-gap-item button:hover {
+  opacity: 0.9;
+}
+.resume-dashboard {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.dashboard-card {
+  padding: 25px 15px;
+  text-align: center;
+  background: #17243d;
+  border: 1px solid #334b70;
+  border-radius: 12px;
+}
+
+.dashboard-number {
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.dashboard-card p {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .resume-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.resume-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.resume-progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}

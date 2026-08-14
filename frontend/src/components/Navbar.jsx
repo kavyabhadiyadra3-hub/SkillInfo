@@ -1,10 +1,11 @@
-function Navbar({
-  onHome,
-  onSkills,
-  onCourses,
-  onProgress,
-  onAbout,
-  onLogin,
+function Navbar({ 
+  onHome, 
+  onSkills, 
+  onCourses, 
+  onProgress, 
+  onResume,
+  onAbout, 
+  onLogin 
 }) {
   return (
     <nav className="navbar">
@@ -33,6 +34,10 @@ function Navbar({
         <button type="button" onClick={onProgress}>
           Progress
         </button>
+
+        <button onClick={onResume}>
+  Resume
+</button>
 
         <button type="button" onClick={onAbout}>
           About
