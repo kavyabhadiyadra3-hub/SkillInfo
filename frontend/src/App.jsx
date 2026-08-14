@@ -13,7 +13,7 @@ import Courses from "./components/Courses";
 import About from "./components/About";
 import Progress from "./components/Progress";
 import Login from "./components/Login";
-import Signup from "./components/Signup";
+import Signup from "./components/SignUp";
 import Resume from "./components/Resume";
 import AITest from "./components/AITest";
 

@@ -334,7 +334,7 @@ const getResumeScoreMessage = (score) => {
 
         // Send text to backend
         const response = await fetch(
-            "http://localhost:5000/api/resume/analyze",
+            "https://skillinfo.onrender.com/api/resume/analyze",
             {
                 method: "POST",
                 headers: {
